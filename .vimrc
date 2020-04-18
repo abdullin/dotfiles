@@ -128,9 +128,38 @@ set signcolumn=no
 " COLOR
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set t_Co=256 " 256 colors
-:color ir_black
+":color ir_black
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Selecta Mappings - uses a brew 'selecta' from garry
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run a given vim command on the results of fuzzy selecting from a given shell
+" command. See usage below.
+function! SelectaCommand(choice_command, selecta_args, vim_command)
+  try
+    let selection = system(a:choice_command . " | selecta " . a:selecta_args)
+    " Escape spaces in the file name. That ensures that it's a single argument
+    " when concatenated with vim_command and run with exec.
+    let selection = substitute(selection, ' ', '\\ ', "g")
+  catch /Vim:Interrupt/
+    " Swallow the ^C so that the redraw below happens; otherwise there will be
+    " leftovers from selecta on the screen
+    redraw!
+    return
+  endtry
+  redraw!
+  exec a:vim_command . " " . selection
+endfunction
+
+function! SelectaFile(path, glob, command)
+  call SelectaCommand("find " . a:path . "/* -type f -and -not -path '*/node_modules/*' -and -not -path '*/_build/*' -and -not -path '*/build/*' -and -iname '" . a:glob . "' -and -not -iname '*.pyc' -and -not -ipath '*/tmp/*' -and -not -iname '*.png' -and -not -iname '*.jpg' -and -not -iname '*.eps' -and -not -iname '*.pdf' -and -not -iname '*.svg' -and -not -iname '*.ttf'", "", a:command)
+endfunction
+
+nnoremap <leader>f :call SelectaFile(".", "*", ":edit")<cr>
