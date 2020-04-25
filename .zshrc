@@ -52,6 +52,25 @@ function n() {
     fi
 }
 
+
+# Switch projects
+function p() {
+    local proj
+    proj=$(ls ~/proj | selecta)
+    if [[ -n "$proj" ]]; then
+        cd ~/proj/$proj
+        if [[ -e "Gemfile" ]]; then
+            local ruby_version
+            ruby_version=$(ruby -ne $'print $1 if $_ =~ /ruby [\'"]([0-9.]+)[\'"]/' Gemfile)
+            chruby "$ruby_version"
+            gem_home .
+        fi
+        if [[ -d ~/secrets/$proj ]]; then
+            . ~/secrets/$proj/secrets.sh
+        fi
+    fi
+}
+
 export GOPATH=$HOME/proj/go
 export PATH=$PATH:$HOME/proj/go/bin
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
@@ -62,3 +81,8 @@ export PATH=$PATH:$(python3 -m site --user-base)/bin
 
 
 autoload -U +X bashcompinit && bashcompinit
+
+# changes the current ruby
+# https://github.com/postmodern/chruby
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/gem_home/gem_home.sh
