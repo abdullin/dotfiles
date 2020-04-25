@@ -7,19 +7,16 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 
-#alias vim='emacsclient -t'
-#alias vi='emacsclient -t'i
-
-alias e='emacsclient -t'
 alias ec='emacsclient -c'
 # DFS - DotFileS - git alias for working with the dotfiles
-alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-plugins=(git autojump command-not-found)
+plugins=(git autojump)
 
 source $ZSH/oh-my-zsh.sh
 
 export PATH="/usr/local/sbin:/usr/local/bin:${PATH}"
+# include bin from the dotfiles
 export PATH="$HOME/bin:$PATH"
 
 # Preferred editor for local and remote sessions
@@ -31,13 +28,11 @@ export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 
 
-
 # search with ctrl+up/ctrl+down
 bindkey '^[OA' history-beginning-search-backward
 bindkey '^[OB' history-beginning-search-forward
 
 test -f $HOME/.bash_profile && source $HOME/.bash_profile
-test -f $HOME/.ssh/secrets && source $HOME/.ssh/secrets
 
 # Stop wget from creating ~/.wget-hsts file. I don't care about HSTS (HTTP
 # Strict Transport Security) for wget; it's not as if I'm logging into my bank
@@ -55,8 +50,10 @@ function n() {
 
 # Switch projects
 function p() {
-    local proj
-    proj=$(( ls ~/proj ; cat ~/proj/.alias 2>/dev/null) | selecta)
+    # grab list of projects + list of aliases
+    local list=$( ls ~/proj ; cat ~/proj/.alias 2>/dev/null)
+    # run through the selector
+    local proj=$(echo $list | selecta)
     if [[ -n "$proj" ]]; then
         cd ~/proj/$proj
         # Ruby activation with chruby and gem_home
@@ -78,7 +75,6 @@ function p() {
     fi
 }
 
-export GOPATH=$HOME/proj/go
 export PATH=$PATH:$HOME/proj/go/bin
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
