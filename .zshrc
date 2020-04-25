@@ -56,15 +56,22 @@ function n() {
 # Switch projects
 function p() {
     local proj
-    proj=$(ls ~/proj | selecta)
+    proj=$(( ls ~/proj ; cat ~/proj/.alias 2>/dev/null) | selecta)
     if [[ -n "$proj" ]]; then
         cd ~/proj/$proj
+        # Ruby activation with chruby and gem_home
         if [[ -e "Gemfile" ]]; then
             local ruby_version
             ruby_version=$(ruby -ne $'print $1 if $_ =~ /ruby [\'"]([0-9.]+)[\'"]/' Gemfile)
             chruby "$ruby_version"
             gem_home .
         fi
+        # Python activation
+        if [[ -e "venv/bin/activate" ]]; then
+            clear
+            source venv/bin/activate
+        fi
+        # load secrets
         if [[ -d ~/secrets/$proj ]]; then
             . ~/secrets/$proj/secrets.sh
         fi
@@ -85,4 +92,6 @@ autoload -U +X bashcompinit && bashcompinit
 # changes the current ruby
 # https://github.com/postmodern/chruby
 source /usr/local/share/chruby/chruby.sh
+# a tool for changing $GEM_HOME
+# https://github.com/postmodern/gem_home
 source /usr/local/share/gem_home/gem_home.sh
