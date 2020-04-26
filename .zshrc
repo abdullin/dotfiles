@@ -5,7 +5,9 @@ setopt prompt_subst
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git svn
 # Update each time new prompt is rendered: 
-function precmd() { vcs_info }
+function precmd() { 
+  vcs_info 
+}
 # Show base (.git) directory, current branch and path within a repo: 
 zstyle ':vcs_info:*' formats '(%{%F{red}%}%b%{%f%})'
 # show vcs info in the prompt
@@ -13,7 +15,7 @@ zstyle ':vcs_info:*' formats '(%{%F{red}%}%b%{%f%})'
 # %n - username
 # %m - short hostname
 
-PROMPT='%{%B%}%{%F{cyan}%}%n@%m%{%f%} %1~ ${vcs_info_msg_0_}%(?.%{%F{green}%}.%{%F{red}%})$%{%f%}%{%b%} '
+PROMPT='%(?..%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg_0_}> %{%f%}%{%b%}'
 
 
 
