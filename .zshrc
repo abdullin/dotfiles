@@ -1,9 +1,9 @@
-# PROMPT
+# PROMPT ============================================================
 # Allow dynamic command prompt
 setopt prompt_subst
 # Make sure that vcs_info function is available:
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' enable git
 # Update each time new prompt is rendered: 
 function precmd() { 
   vcs_info 
@@ -18,7 +18,22 @@ zstyle ':vcs_info:*' formats '(%{%F{red}%}%b%{%f%})'
 PROMPT='%(?..%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg_0_}> %{%f%}%{%b%}'
 
 
+# Enable completion
+autoload -U compinit
+compinit -D
 
+
+# Colorize terminal
+alias ls='ls -G'
+alias ll='ls -lG'
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+export GREP_OPTIONS="--color"
+
+
+# Use C-x C-e to edit the current command line
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-x\C-e' edit-command-line
 
 # Path to your oh-my-zsh configuration.
 #ZSH=$HOME/.oh-my-zsh
@@ -33,9 +48,6 @@ alias ec='emacsclient -c'
 # DFS - DotFileS - git alias for working with the dotfiles
 alias dit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-plugins=(git autojump)
-
-#source $ZSH/oh-my-zsh.sh
 
 export PATH="/usr/local/sbin:/usr/local/bin:${PATH}"
 # include bin from the dotfiles
@@ -50,9 +62,10 @@ export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 
 
-# search with ctrl+up/ctrl+down
-bindkey '^[OA' history-beginning-search-backward
-bindkey '^[OB' history-beginning-search-forward
+# search with up/down
+# Replace with ${terminfo[kcuu1]} and ${terminfo[kcud1]} if not working
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 
 test -f $HOME/.bash_profile && source $HOME/.bash_profile
 
@@ -98,14 +111,13 @@ function p() {
 }
 
 export PATH=$PATH:$HOME/proj/go/bin
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
+#export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
 
 # pipenv
 export PATH=$PATH:$(python3 -m site --user-base)/bin
 
 
-autoload -U +X bashcompinit && bashcompinit
 
 # changes the current ruby
 # https://github.com/postmodern/chruby
