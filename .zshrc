@@ -1,11 +1,31 @@
+# PROMPT
+# Allow dynamic command prompt
+setopt prompt_subst
+# Make sure that vcs_info function is available:
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn
+# Update each time new prompt is rendered: 
+function precmd() { vcs_info }
+# Show base (.git) directory, current branch and path within a repo: 
+zstyle ':vcs_info:*' formats '(%{%F{red}%}%b%{%f%})'
+# show vcs info in the prompt
+# %d - directory
+# %n - username
+# %m - short hostname
+
+PROMPT='%{%B%}%{%F{cyan}%}%n@%m%{%f%} %1~ ${vcs_info_msg_0_}%(?.%{%F{green}%}.%{%F{red}%})$%{%f%}%{%b%} '
+
+
+
+
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+#ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 
 alias ec='emacsclient -c'
 # DFS - DotFileS - git alias for working with the dotfiles
@@ -13,7 +33,7 @@ alias dit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 plugins=(git autojump)
 
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
 
 export PATH="/usr/local/sbin:/usr/local/bin:${PATH}"
 # include bin from the dotfiles
