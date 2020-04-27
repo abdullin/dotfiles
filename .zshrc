@@ -47,8 +47,6 @@ bindkey '\C-x\C-e' edit-command-line
 # ZSH_THEME="robbyrussell"
 
 alias ec='emacsclient -c'
-# DFS - DotFileS - git alias for working with the dotfiles
-alias dit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 
 export PATH="/usr/local/sbin:/usr/local/bin:${PATH}"
