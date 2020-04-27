@@ -20,6 +20,7 @@
 /.cups/
 /.dlv/
 /.docker/
+/.dotfiles/
 /.dotnet/
 /.dropbox/
 /.eclipse/

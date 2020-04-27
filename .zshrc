@@ -6,8 +6,11 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 # Update each time new prompt is rendered: 
 function precmd() { 
-  vcs_info 
+  vcs_info
 }
+
+PROMPT='%(?..%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg_0_}> %{%f%}%{%b%}'
+
 # Show base (.git) directory, current branch and path within a repo: 
 zstyle ':vcs_info:*' formats '(%{%F{red}%}%b%{%f%})'
 # show vcs info in the prompt
@@ -15,9 +18,14 @@ zstyle ':vcs_info:*' formats '(%{%F{red}%}%b%{%f%})'
 # %n - username
 # %m - short hostname
 
-PROMPT='%(?..%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg_0_}> %{%f%}%{%b%}'
 
 
+
+# switches git into the dotfiles editing mode
+function dotfiles() {
+  alias git='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+  alias dotfiles='echo leave dotfiles && unalias git'
+}
 # Enable completion
 autoload -U compinit
 compinit -D
