@@ -66,10 +66,7 @@
 /.python_history
 /.rbenv/
 /.rnd
-/.roswell/
-/.sbclrc
-/.spyder2-py3/
-/.squirrel-sql/
+/.sbt/
 /.ssh/
 /.streamline/
 /.subversion/
