@@ -63,7 +63,6 @@
 /.node_repl_history
 /.npm/
 /.nuget/
-/.oh-my-zsh/
 /.openfaas/
 /.oracle_jre_usage/
 /.org-timestamps/
@@ -74,7 +73,6 @@
 /.pylint.d/
 /.pypirc
 /.python_history
-/.qa.cluster
 /.rbenv/
 /.rnd
 /.roswell/
@@ -82,7 +80,6 @@
 /.sbt/
 /.serverless/
 /.serverlessrc
-/.skuvault/
 /.slime-history.eld
 /.slime/
 /.spyder2-py3/
@@ -129,3 +126,4 @@
 /mtd/
 /org/
 /proj/
+/secrets/
