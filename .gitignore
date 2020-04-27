@@ -15,16 +15,13 @@
 /.boto
 /.bundle/
 /.bzr.log
+/.caa/
 /.cache/
-/.cassandra/
-/.chezscheme_history
 /.conda/
 /.config/
 /.cups/
-/.dev.cluster
 /.dlv/
 /.docker/
-/.dotfiles/
 /.dotnet/
 /.dropbox/
 /.eclipse/
@@ -34,7 +31,6 @@
 /.fdbcli_history
 /.gem/
 /.gemrc
-/.gitignore
 /.glide/
 /.gnupg/
 /.hdfview2.13
