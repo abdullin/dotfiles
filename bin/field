@@ -1,0 +1,3 @@
+#!/bin/bash
+# From https://github.com/garybernhardt/dotfiles/blob/master/bin/field
+awk "{print \$$1}"
