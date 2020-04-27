@@ -24,7 +24,8 @@ zstyle ':vcs_info:*' formats '(%{%F{red}%}%b%{%f%})'
 # switches git into the dotfiles editing mode
 function dotfiles() {
   alias git='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-  alias dotfiles='echo leave dotfiles && unalias git'
+  local prefix='%{%F{red}%}(dotfiles)%{%f%}'
+  PROMPT="${prefix} ${PROMPT}"
 }
 # Enable completion
 autoload -U compinit
