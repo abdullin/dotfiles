@@ -21,6 +21,8 @@ PROMPT='%(?..%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg_0_}> %{%f%}%
 # Enable completion
 autoload -U compinit
 compinit -D
+# choose tab completion options with arrow keys
+zstyle ':completion:*' menu select
 
 
 # Colorize terminal
