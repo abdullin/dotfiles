@@ -112,7 +112,9 @@ set diffopt=vertical
 " Always show the sign column
 set signcolumn=no
 " True color mode! (Requires a fancy modern terminal, but iTerm works.)
-:set termguicolors
+if $COLORTERM=="truecolor" || $COLORTERM=="24bit"
+  :set termguicolors
+endif
 " Write swap files to disk and trigger CursorHold event faster (default is
 " after 4000 ms of inactivity)
 :set updatetime=200
