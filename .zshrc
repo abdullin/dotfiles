@@ -1,3 +1,30 @@
+
+
+# DOTFILES SUPPORT ==================================================
+# this is based on the idea from https://news.ycombinator.com/item?id=11070797
+# with some modifications 
+# to create a new repo:
+#    git init --bare $HOME/.dotfiles
+# then switch into the dotfiles mode (defined in the function below).
+# There will be a lot of noise in there. I prefer to add everythint to ignores
+# Alternative is:
+#   git config --local status.showUntrackedFiles no
+
+DOTFILES_PROMPT='%{%B%}%{%F{red}%}git->dot%{%f%}%{%b%}'
+
+function dotfiles() {
+  if [[ "$RPROMPT" == "" ]]; then
+    echo "Entering dotfiles mode. Write dotfiles again to leave it"
+    alias git='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+    RPROMPT=$DOTFILES_PROMPT
+  elif [[ "$RPROMPT" == "$DOTFILES_PROMPT" ]]; then
+    echo "Leaving dotfiles mode"
+    unalias git
+    RPROMPT=""
+  else
+    echo "RPROMPT is set to something unexpected!"
+  fi
+}
 # PROMPT ============================================================
 # Allow dynamic command prompt
 setopt prompt_subst
@@ -9,23 +36,15 @@ function precmd() {
   vcs_info
 }
 
-PROMPT='%(?..%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg_0_}> %{%f%}%{%b%}'
-
 # Show base (.git) directory, current branch and path within a repo: 
 zstyle ':vcs_info:*' formats '(%{%F{red}%}%b%{%f%})'
+
 # show vcs info in the prompt
 # %d - directory
 # %n - username
 # %m - short hostname
+PROMPT='%(?..%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg_0_}> %{%f%}%{%b%}'
 
-
-
-
-# switches git into the dotfiles editing mode
-function dotfiles() {
-  alias git='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-  RPROMPT='%{%B%}%{%F{red}%}git->dot%{%f%}%{%b%}'
-}
 # Enable completion
 autoload -U compinit
 compinit -D
