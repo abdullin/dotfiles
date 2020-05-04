@@ -124,7 +124,9 @@ endif
 :set completeopt=menu,preview
 
 
-"show line numbers
+" show line numbers
+" They help to memorize the file layout even without looking at them
+" consciously
 :set number 
 
 
