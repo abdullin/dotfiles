@@ -1,0 +1,6 @@
+#!/bin/bash
+virtualenv -p `which python3` venv
+if [[ -f "requirements.txt" ]]; then
+  venv/bin/pip install -r requirements.txt
+fi
+
