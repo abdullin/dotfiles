@@ -1,4 +1,5 @@
-
+# File in general is based on the dotfiles from Gary Bernhard
+# https://github.com/garybernhardt/dotfiles/blob/master/.zshrc
 
 # DOTFILES SUPPORT ==================================================
 # this is based on the idea from https://news.ycombinator.com/item?id=11070797
@@ -140,9 +141,18 @@ function p() {
 export PATH=$PATH:$HOME/proj/go/bin
 #export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
-
+# PYTHON ==========================================
 # pipenv
 export PATH=$PATH:$(python3 -m site --user-base)/bin
+
+# Activate the closest virtualenv by looking in parent directories.
+function activate_venv() {
+    if [ -f venv/bin/activate ]; then . venv/bin/activate;
+    elif [ -f ../venv/bin/activate ]; then . ../venv/bin/activate;
+    elif [ -f ../../venv/bin/activate ]; then . ../../venv/bin/activate;
+    elif [ -f ../../../venv/bin/activate ]; then . ../../../venv/bin/activate;
+    fi
+}
 
 
 
