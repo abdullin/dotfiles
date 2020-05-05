@@ -307,6 +307,25 @@ map <leader>rf :call RenameFile()<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SWITCH BETWEEN TEST AND PRODUCTION CODE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! OpenTestAlternate()
+  let current_file = expand("%")
+  let project_script = 'bin/test_alternate'
+  let default_script = '~/bin/test_alternate'
+
+  if executable(project_script)
+    let script = project_script
+  else
+    let script = default_script
+  endif
+  let new_file = system(script . ' ' . current_file)
+  exec ':e ' . new_file
+endfunction
+nnoremap <leader>. :call OpenTestAlternate()<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
 "
 " Test running here is contextual in two different ways:
