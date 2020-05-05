@@ -91,9 +91,13 @@ export SAVEHIST=$HISTSIZE
 
 
 # search with up/down
-# Replace with ${terminfo[kcuu1]} and ${terminfo[kcud1]} if not working
+# this works when I mosh to ubuntu
 bindkey ${terminfo[kcuu1]} history-beginning-search-backward
 bindkey ${terminfo[kcud1]} history-beginning-search-forward
+# this works in iTerm on OSX
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+
 
 test -f $HOME/.bash_profile && source $HOME/.bash_profile
 
