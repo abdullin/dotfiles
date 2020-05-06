@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby_alternate
+#!/usr/bin/env ruby
 
 
 def python_alternate(name)
