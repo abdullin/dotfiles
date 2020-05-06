@@ -235,6 +235,8 @@ nnoremap <leader><leader> <c-^>
 vnoremap <leader>ib :!align<cr>
 " Close all other splits
 nnoremap <leader>o :only<cr>
+" open vimrc
+nnoremap <leader>v :e ~/.vimrc <cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
