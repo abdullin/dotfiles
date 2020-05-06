@@ -387,7 +387,7 @@ function! RunTests(filename)
     " Fall back to the .test-commands pipe if available, assuming someone
     " is reading the other side and running the commands
     elseif filewritable(".test-commands")
-      let cmd = 'rspec --color --format progress --require "~/lib/vim_rspec_formatter" --format VimFormatter --out tmp/quickfix'
+      let cmd = 'rspec --format progress --require "~/lib/vim_rspec_formatter" --format VimFormatter --out tmp/quickfix'
       exec ":!echo " . cmd . " " . a:filename . " > .test-commands"
 
       " Write an empty string to block until the command completes
@@ -396,13 +396,15 @@ function! RunTests(filename)
       redraw!
     " Fall back to a blocking test run with Bundler
     elseif filereadable("bin/rspec")
-      exec ":!bin/rspec --color " . a:filename
+      exec ":!bin/rspec " . a:filename
     elseif filereadable("Gemfile") && strlen(glob("spec/**/*.rb"))
-      exec ":!bundle exec rspec --color " . a:filename
+      exec ":!bundle exec rspec " . a:filename
     elseif filereadable("Gemfile") && strlen(glob("test/**/*.rb"))
       exec ":!bin/rails test " . a:filename
     " If we see python-looking tests, assume they should be run with Nose
     elseif strlen(glob("test/**/*.py") . glob("tests/**/*.py"))
       exec "!nosetests " . a:filename
-    end
+    else
+      echo "No matching test runner"
+    endif
 endfunction
