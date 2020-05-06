@@ -311,8 +311,8 @@ map <leader>rf :call RenameFile()<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! OpenTestAlternate()
   let current_file = expand("%")
-  let project_script = 'bin/test_alternate'
-  let default_script = '~/bin/test_alternate'
+  let project_script = 'bin/find_test_alternate'
+  let default_script = '~/bin/find_test_alternate'
 
   if executable(project_script)
     let script = project_script

@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+#
+name = ARGV[0].strip
+
+
+def python(name)
+  test_case = /_test\.py$/
+  if name =~ test_case
+    name.gsub(test_case, ".py")
+  else
+    name.gsub(/\.py$/, "_test.py")
+  end
+end
+
+def ruby(name)
+  test_case =/_spec\.rb$/
+  if test_case =~ name
+    name.sub(test_case, ".rb")
+  else
+    name.sub(/\.rb$/, "_spec.rb")
+  end
+end
+
+
+
+
+puts python(name) if name.end_with? ".py"
+puts ruby(name) if name.end_with? ".rb"
+
