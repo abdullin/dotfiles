@@ -187,6 +187,8 @@ augroup vimrcEx
   " looks 200 lines back, which can make it highlight code incorrectly in some
   " long files.)
   autocmd BufEnter * :syntax sync fromstart
+
+  
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
