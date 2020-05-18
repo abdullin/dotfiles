@@ -10,10 +10,17 @@ def python_alternate(name)
 end
 
 def ruby_alternate(name)
-  if name =~ /_spec\.rb$/
-    name.sub(/_spec\.rb$/, ".rb")
+  # ^spec/.*_spec.rb#
+  in_spec = name.start_with? "spec/"
+  spec_file = name.end_with? "_spec.rb"
+  return nil if in_spec != spec_file
+
+  if in_spec
+    new_name = name.sub("_spec.rb", ".rb")
+    new_name.sub(/^spec\//, "")
   else
-    name.sub(/\.rb$/, "_spec.rb")
+    new_name = name.sub(".rb", "_spec.rb")
+    "spec/" + new_name
   end
 end
 
