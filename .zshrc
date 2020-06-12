@@ -142,11 +142,10 @@ function p() {
     fi
 }
 
+# golang
 export PATH=$PATH:$HOME/proj/go/bin
-#export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
 # PYTHON ==========================================
-# pipenv
 export PATH=$PATH:$(python3 -m site --user-base)/bin
 
 # Activate the closest virtualenv by looking in parent directories.
@@ -159,10 +158,18 @@ function activate_venv() {
 }
 
 
+# dotnet
+export PATH="$PATH:$HOME/.dotnet/tools"
+
+
 
 # changes the current ruby
 # https://github.com/postmodern/chruby
-source /usr/local/share/chruby/chruby.sh
+if [ -f /usr/local/share/chruby/chruby.sh ]; then 
+  source /usr/local/share/chruby/chruby.sh
+fi
 # a tool for changing $GEM_HOME
 # https://github.com/postmodern/gem_home
-source /usr/local/share/gem_home/gem_home.sh
+if [ -f /usr/local/share/gem_home/gem_home.sh ]; then
+  source /usr/local/share/gem_home/gem_home.sh
+fi
