@@ -44,7 +44,7 @@ zstyle ':vcs_info:*' formats '(%{%F{red}%}%b%{%f%})'
 # %d - directory
 # %n - username
 # %m - short hostname
-PROMPT='%(?..%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg_0_}> %{%f%}%{%b%}'
+PROMPT='%(?.%{%F{green}%}.%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg_0_}> %{%f%}%{%b%}'
 
 # Enable completion
 autoload -U compinit
