@@ -238,7 +238,7 @@ vnoremap <leader>ib :!align<cr>
 " Close all other splits
 nnoremap <leader>o :only<cr>
 " open vimrc
-nnoremap <leader>v :e ~/.vimrc <cr>
+nnoremap <leader>gv :e ~/.vimrc <cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -263,10 +263,24 @@ function! SelectaCommand(choice_command, selecta_args, vim_command)
 endfunction
 
 function! SelectaFile(path, glob, command)
-  call SelectaCommand("find " . a:path . "/* -type f -and -not -path '*/node_modules/*' -and -not -path '*/_build/*' -and -not -path '*/venv/*'  -and -not -path '*/build/*' -and -iname '" . a:glob . "' -and -not -iname '*.pyc' -and -not -ipath '*/tmp/*' -and -not -iname '*.png' -and -not -iname '*.jpg' -and -not -iname '*.eps' -and -not -iname '*.pdf' -and -not -iname '*.svg' -and -not -iname '*.ttf'", "", a:command)
+  call SelectaCommand("find " . a:path . "/* -type f -and -not -path '*/node_modules/*' -and -not -path '*/_build/*' -and -not -path '*/venv/*'  -and -not -path '*/build/*' -and -iname '" . a:glob . "' -and -not -iname '*.pyc' -and -not -ipath '*/tmp/*' -and -not -iname '*.png' -and -not -iname '*.jpg' -and -not -iname '*.eps' -and -not -iname '*.pdf' -and -not -iname '*.svg' -and -not -iname '*.ttf' -and -not -iname '.keep'", "", a:command)
 endfunction
 
+
+" find file from the root for editing
 nnoremap <leader>f :call SelectaFile(".", "*", ":edit")<cr>
+" Edit app components
+nnoremap <leader>gv :call SelectaFile("app/views", "*", ":edit")<cr>
+nnoremap <leader>gc :call SelectaFile("app/controllers", "*", ":edit")<cr>
+nnoremap <leader>gm :call SelectaFile("app/models", "*", ":edit")<cr>
+nnoremap <leader>gh :call SelectaFile("app/helpers", "*", ":edit")<cr>
+" misc things
+nnoremap <leader>gl :call SelectaFile("lib", "*", ":edit")<cr>
+nnoremap <leader>gp :call SelectaFile("public", "*", ":edit")<cr>
+nnoremap <leader>gs :call SelectaFile("app/assets/stylesheets", "*.sass", ":edit")<cr>
+" view/edit relative file
+nnoremap <leader>e :call SelectaFile(expand('%:h'), "*", ":edit")<cr>
+nnoremap <leader>v :call SelectaFile(expand('%:h'), "*", ":view")<cr>
 
 
 
@@ -305,8 +319,30 @@ function! RenameFile()
     endif
 endfunction
 
-map <leader>rf :call RenameFile()<cr>
+map <leader>n :call RenameFile()<cr>
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RAILS Routes
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>gr :topleft :split config/routes.rb<cr>
+function! ShowRoutes()
+  " Requires 'scratch' plugin
+  :topleft 100 :split __Routes__
+  " Make sure Vim doesn't write __Routes__ as a file
+  :set buftype=nofile
+  " Delete everything
+  :normal 1GdG
+  " Put routes output in buffer
+  :0r! rake -s routes
+  " Size window to number of lines (1 plus rake output length)
+  :exec ":normal " . line("$") . "_ "
+  " Move cursor to bottom
+  :normal 1GG
+  " Delete empty trailing line
+  :normal dd
+endfunction
+map <leader>gR :call ShowRoutes()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
