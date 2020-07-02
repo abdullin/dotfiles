@@ -321,7 +321,16 @@ function! RenameFile()
     endif
 endfunction
 
-map <leader>n :call RenameFile()<cr>
+:command MV :call RenameFile()
+
+
+
+function! RemoveFile()
+  let name = expand('%')
+  call delete(name)
+  exec ':bdelete!'
+endfunction
+:command RM :call RemoveFile()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
