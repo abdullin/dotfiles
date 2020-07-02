@@ -57,8 +57,10 @@ zstyle ':completion:*' menu select
 alias ls='ls -G'
 alias ll='ls -lG'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-export GREP_OPTIONS="--color"
 
+
+# Always enable colored `grep` output`
+alias grep="grep --color=auto"
 
 # Use C-x C-e to edit the current command line
 autoload -U edit-command-line
