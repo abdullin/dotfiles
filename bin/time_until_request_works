@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+# use this utility in a script to wait for the server to come back
+# and print the result
+# e.g. touch App.cs && ./time_until_request_works
+import requests
+import time
+from urllib3.exceptions import InsecureRequestWarning
+
+# Suppress only the single warning from urllib3 needed.
+requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+
+started = time.time()
+
+url = 'https://localhost:5001'
+print("Requesting " + url)
+time.sleep(0.5) # to let FS watchers pick up the changes
+
+while True:
+    try:
+
+        r = requests.get(url, verify=False)
+        if r.status_code == 200:
+            elapsed = time.time() - started
+            print('Done in {0:.2f}sec'.format(elapsed))
+
+            break
+    except:
+        time.sleep(0.1)

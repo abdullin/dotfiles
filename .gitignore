@@ -67,6 +67,7 @@
 /.python_history
 /.rbenv/
 /.rnd
+/.rubies/
 /.sbt/
 /.ssh/
 /.streamline/
