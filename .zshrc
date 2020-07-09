@@ -48,9 +48,11 @@ PROMPT='%(?.%{%F{green}%}.%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg
 
 # Enable completion
 autoload -U compinit
-compinit -D
+# -i ignores insecure directories. See https://github.com/zsh-users/zsh-completions/issues/680#issuecomment-647037301
+compinit -D -i
 # choose tab completion options with arrow keys
 zstyle ':completion:*' menu select
+
 
 
 # Colorize terminal
