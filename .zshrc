@@ -11,6 +11,11 @@
 # Alternative is:
 #   git config --local status.showUntrackedFiles no
 
+# to pull things on a new machine:
+# git clone --bare git@github.com:abdullin/dotfiles.git $HOME/.dotfiles
+# git --work-tree=$HOME --git-dir=$HOME/.dotfiles/ checkout
+# then restart the terminal
+
 DOTFILES_PROMPT='%{%B%}%{%F{red}%}git->dot%{%f%}%{%b%}'
 
 function dotfiles() {
