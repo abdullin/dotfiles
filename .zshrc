@@ -53,8 +53,9 @@ PROMPT='%(?.%{%F{green}%}.%{%F{red}%})%n@%m%{%f%} %{%B%}%1~%{%f%} ${vcs_info_msg
 
 # Enable completion
 autoload -U compinit
-# -i ignores insecure directories. See https://github.com/zsh-users/zsh-completions/issues/680#issuecomment-647037301
-compinit -D -i
+# If you get compinit to complain on mac, remove write permissions on the faulty files
+# compaudit | xargs chmod go-w
+compinit -D
 # choose tab completion options with arrow keys
 zstyle ':completion:*' menu select
 
