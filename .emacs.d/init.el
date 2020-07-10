@@ -24,19 +24,6 @@
 (require 'evil)
 (evil-mode t)
 
-
-;;Motion state map disables the cursor keys in normal, operator, visual
-;; as well as the special motion states.
-(define-key evil-insert-state-map [left] 'undefined)
-(define-key evil-insert-state-map [right] 'undefined)
-(define-key evil-insert-state-map [up] 'undefined)
-(define-key evil-insert-state-map [down] 'undefined)
-
-(define-key evil-motion-state-map [left] 'undefined)
-(define-key evil-motion-state-map [right] 'undefined)
-(define-key evil-motion-state-map [up] 'undefined)
-(define-key evil-motion-state-map [down] 'undefined)
-
 (require 'evil-leader)
 (global-evil-leader-mode)
 (evil-leader/set-leader ",")
