@@ -1,0 +1,4 @@
+#!/bin/bash
+
+TARGET=$1
+ssh-keygen -t rsa -b 4096 -C "rinat@$(hostname -s) for $TARGET" -f ~/.ssh/$TARGET
