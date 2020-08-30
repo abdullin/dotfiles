@@ -11,11 +11,11 @@
 # Alternative is:
 #   git config --local status.showUntrackedFiles no
 
+# install zsh and make it default by adding /usr/bin/zsh to /etc/passwd
 # to pull things on a new machine:
 # git clone --bare git@github.com:abdullin/dotfiles.git $HOME/.dotfiles
 # git --work-tree=$HOME --git-dir=$HOME/.dotfiles/ checkout
-#
-# git submodule update --init --recursive
+# git --work-tree=$HOME --git-dir=$HOME/.dotfiles/ submodule update --init --recursive
 # then restart the terminal
 
 DOTFILES_PROMPT='%{%B%}%{%F{red}%}git->dot%{%f%}%{%b%}'
