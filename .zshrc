@@ -122,32 +122,33 @@ test -f $HOME/.bash_profile && source $HOME/.bash_profile
 # with it.
 alias wget='wget --no-hsts'
 
-
+export HEATSEEKER=heatseeker-$(uname)-$(uname -m)
+alias heatseeker=$HEATSEEKER
 
 # By default, ^S freezes terminal output and ^Q resumes it. Disable that so
 # that those keys can be used for other things.
 unsetopt flowcontrol
-# Run Selecta in the current working directory, appending the selected path, if
+# Run heatseeker in the current working directory, appending the selected path, if
 # any, to the current command.
-function insert-selecta-path-in-command-line() {
+function insert-heatseeker-path-in-command-line() {
     local selected_path
     # Print a newline or we'll clobber the old prompt.
     echo
     # Find the path; abort if the user doesn't select anything.
-    selected_path=$(fd -t f . | selecta) || return
+    selected_path=$(fd -t f . | heatseeker) || return
     # Escape the selected path, since we're inserting it into a command line.
     # E.g., spaces would cause it to be multiple arguments instead of a single
     # path argument.
     selected_path=$(printf '%q' "$selected_path")
     # Append the selection to the current command buffer.
     eval 'LBUFFER="$LBUFFER$selected_path "'
-    # Redraw the prompt since Selecta has drawn several new lines of text.
+    # Redraw the prompt since heatseeker has drawn several new lines of text.
     zle reset-prompt
 }
 # Create the zle widget
-zle -N insert-selecta-path-in-command-line
+zle -N insert-heatseeker-path-in-command-line
 # Bind the key to the newly created widget
-bindkey "^S" "insert-selecta-path-in-command-line"
+bindkey "^S" "insert-heatseeker-path-in-command-line"
 
 
 # Switch projects
@@ -155,7 +156,7 @@ function p() {
     # grab list of projects + list of aliases
     local list=$( ls ~/proj ; cat ~/proj/.alias 2>/dev/null)
     # run through the selector
-    local proj=$(echo $list | selecta)
+    local proj=$(echo $list | heatseeker)
     if [[ -n "$proj" ]]; then
         cd ~/proj/$proj
         # Ruby activation with chruby and gem_home
