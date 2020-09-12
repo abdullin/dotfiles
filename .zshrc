@@ -149,7 +149,8 @@ function p() {
         fi
         # load secrets
         if [[ -d ~/secrets/$proj ]]; then
-            . ~/secrets/$proj/secrets.sh
+            echo "."
+            source ~/secrets/$proj/secrets
         fi
     fi
 }
