@@ -283,7 +283,7 @@ nnoremap <leader>gh :call SelectaFile("app/helpers", "*", ":edit")<cr>
 " misc things
 nnoremap <leader>gl :call SelectaFile("lib", "*", ":edit")<cr>
 nnoremap <leader>gp :call SelectaFile("public", "*", ":edit")<cr>
-nnoremap <leader>gs :call SelectaFile("app/assets/stylesheets", "*.sass", ":edit")<cr>
+nnoremap <leader>gs :call SelectaFile("app/assets/stylesheets", "*", ":edit")<cr>
 " view/edit relative file
 nnoremap <leader>e :call SelectaFile(expand('%:h'), "*", ":edit")<cr>
 nnoremap <leader>v :call SelectaFile(expand('%:h'), "*", ":view")<cr>
