@@ -252,10 +252,10 @@ nnoremap <leader>Gz :e ~/.zshrc <cr>
 let g:heatseeker_binary = system("~/bin/bin-for-this-platform heatseeker")
 function! SelectaCommand(choice_command, selecta_args, vim_command)
   try
-    let selection = system(a:choice_command . " | " . g:heatseeker_binary . " " . a:selecta_args)
+    let selections = system(a:choice_command . " | " . g:heatseeker_binary . " " . a:selecta_args)
     " Escape spaces in the file name. That ensures that it's a single argument
     " when concatenated with vim_command and run with exec.
-    let selection = substitute(selection, ' ', '\\ ', "g")
+    " let selection = substitute(selection, ' ', '\\ ', "g")
   catch /Vim:Interrupt/
     " Swallow the ^C so that the redraw below happens; otherwise there will be
     " leftovers from selecta on the screen
@@ -264,10 +264,8 @@ function! SelectaCommand(choice_command, selecta_args, vim_command)
   endtry
   redraw!
   for selection in split(selections, "\n")
-    exec a:first_command . " " . selection
+    exec a:vim_command . " " . selection
   endfor
-
-  exec a:vim_command . " " . selection
 endfunction
 
 function! SelectaFile(path, glob, command)
