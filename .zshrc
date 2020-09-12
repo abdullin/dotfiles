@@ -37,6 +37,9 @@ function dotfiles() {
     echo "RPROMPT is set to something unexpected!"
   fi
 }
+
+alias dotpf="git --work-tree=$HOME --git-dir=$HOME/.dotfiles/ pf"
+
 # PROMPT ============================================================
 # Allow dynamic command prompt
 setopt prompt_subst
