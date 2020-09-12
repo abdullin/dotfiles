@@ -122,13 +122,32 @@ test -f $HOME/.bash_profile && source $HOME/.bash_profile
 # with it.
 alias wget='wget --no-hsts'
 
-# Edit a note
-function n() {
-    local note=$(find ~/notes/* | selecta)
-    if [[ -n "$note" ]]; then
-        (cd ~/notes && vi "$note")
-    fi
+
+
+# By default, ^S freezes terminal output and ^Q resumes it. Disable that so
+# that those keys can be used for other things.
+unsetopt flowcontrol
+# Run Selecta in the current working directory, appending the selected path, if
+# any, to the current command.
+function insert-selecta-path-in-command-line() {
+    local selected_path
+    # Print a newline or we'll clobber the old prompt.
+    echo
+    # Find the path; abort if the user doesn't select anything.
+    selected_path=$(fd -t f . | selecta) || return
+    # Escape the selected path, since we're inserting it into a command line.
+    # E.g., spaces would cause it to be multiple arguments instead of a single
+    # path argument.
+    selected_path=$(printf '%q' "$selected_path")
+    # Append the selection to the current command buffer.
+    eval 'LBUFFER="$LBUFFER$selected_path "'
+    # Redraw the prompt since Selecta has drawn several new lines of text.
+    zle reset-prompt
 }
+# Create the zle widget
+zle -N insert-selecta-path-in-command-line
+# Bind the key to the newly created widget
+bindkey "^S" "insert-selecta-path-in-command-line"
 
 
 # Switch projects
