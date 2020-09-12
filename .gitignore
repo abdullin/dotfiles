@@ -32,7 +32,6 @@
 /.gnupg/
 /.helm/
 /.history
-/hoard/
 /.httpie/
 /.ipython/
 /.irb_history
@@ -49,7 +48,6 @@
 /.lesshst
 /.local/
 /.m2/
-/mail/
 /.matplotlib/
 /.mc/
 /.mono/
@@ -63,7 +61,6 @@
 /.packer.d/
 /.parallel/
 /.pgadmin/
-/photos/
 /.profile
 /.pylint.d/
 /.pypirc
@@ -108,9 +105,14 @@
 /Public/
 /PycharmProjects/
 /RiderProjects/
+/backup/
+/files/
 /go/
+/hoard/
+/mail/
 /mtd/
 /org/
+/photos/
 /proj/
 /secrets/
 /src/
