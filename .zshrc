@@ -122,9 +122,7 @@ test -f $HOME/.bash_profile && source $HOME/.bash_profile
 # with it.
 alias wget='wget --no-hsts'
 
-export HEATSEEKER=heatseeker-$(uname)-$(uname -m)
-alias heatseeker=$HEATSEEKER
-
+alias heatseeker=$(~/bin/bin-for-this-platform heatseeker)
 # By default, ^S freezes terminal output and ^Q resumes it. Disable that so
 # that those keys can be used for other things.
 unsetopt flowcontrol

@@ -248,9 +248,11 @@ nnoremap <leader>Gz :e ~/.zshrc <cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.
+
+let g:heatseeker_binary = system("~/bin/bin-for-this-platform heatseeker")
 function! SelectaCommand(choice_command, selecta_args, vim_command)
   try
-    let selection = system(a:choice_command . " | selecta " . a:selecta_args)
+    let selection = system(a:choice_command . " | " . g:heatseeker_binary . " " . a:selecta_args)
     " Escape spaces in the file name. That ensures that it's a single argument
     " when concatenated with vim_command and run with exec.
     let selection = substitute(selection, ' ', '\\ ', "g")
@@ -261,6 +263,10 @@ function! SelectaCommand(choice_command, selecta_args, vim_command)
     return
   endtry
   redraw!
+  for selection in split(selections, "\n")
+    exec a:first_command . " " . selection
+  endfor
+
   exec a:vim_command . " " . selection
 endfunction
 

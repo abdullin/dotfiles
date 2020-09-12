@@ -1,0 +1,2 @@
+#!/bin/bash
+echo ~/bin/$1-$(uname)-$(uname -m)
