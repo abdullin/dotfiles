@@ -1,8 +1,8 @@
 *.DS_Store
 /.CFUserTextEncoding
 /.IdentityService/
-/.Trash/
 /.ServiceHub/
+/.Trash/
 /.ansible/
 /.ansible_galaxy
 /.aspnet/
@@ -32,6 +32,7 @@
 /.gnupg/
 /.helm/
 /.history
+/hoard/
 /.httpie/
 /.ipython/
 /.irb_history
@@ -40,6 +41,7 @@
 /.jmc/
 /.jssc/
 /.jupyter/
+/.kafkaesque/
 /.kafkatool2/
 /.kube/
 /.lego/
@@ -47,6 +49,7 @@
 /.lesshst
 /.local/
 /.m2/
+/mail/
 /.matplotlib/
 /.mc/
 /.mono/
@@ -60,6 +63,7 @@
 /.packer.d/
 /.parallel/
 /.pgadmin/
+/photos/
 /.profile
 /.pylint.d/
 /.pypirc
