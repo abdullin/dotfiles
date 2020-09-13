@@ -126,6 +126,7 @@ test -f $HOME/.bash_profile && source $HOME/.bash_profile
 alias wget='wget --no-hsts'
 
 alias heatseeker=$(~/bin/bin-for-this-platform heatseeker)
+alias fd=$(~/bin/bin-for-this-platform fd)
 # By default, ^S freezes terminal output and ^Q resumes it. Disable that so
 # that those keys can be used for other things.
 unsetopt flowcontrol
