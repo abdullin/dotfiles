@@ -251,7 +251,8 @@ let g:fd_binary = trim(system("~/bin/bin-for-this-platform fd"))
 
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.
-function! SelectaCommand(choice_command, vim_command)
+" FD explained here: https://github.com/sharkdp/fd
+function! FuzzySelectCommand(choice_command, vim_command)
   try
     let command =  a:choice_command . " | " . g:heatseeker_binary 
     echo command
@@ -271,27 +272,28 @@ function! SelectaCommand(choice_command, vim_command)
   endfor
 endfunction
 
-function! SelectaFile(path, glob, command)
-  call SelectaCommand(g:fd_binary . " " . a:glob . " " . a:path, a:command)
+function! FuzzySelectFile(path, fd_args, vim_command)
+  " dot searches for everything
+  call FuzzySelectCommand(g:fd_binary . " --type f " . a:fd_args . " . " . a:path, a:vim_command)
 endfunction
 
 
 " find file from the root for editing
-nnoremap <leader>f :call SelectaFile("", ".", ":edit")<cr>
+nnoremap <leader>f :call FuzzySelectFile("", "", ":edit")<cr>
 " Edit app components
-nnoremap <leader>gv :call SelectaFile("app/views", ".", ":edit")<cr>
-nnoremap <leader>gc :call SelectaFile("app/controllers", ".", ":edit")<cr>
-nnoremap <leader>gm :call SelectaFile("app/models", ".", ":edit")<cr>
-nnoremap <leader>gh :call SelectaFile("app/helpers", ".", ":edit")<cr>
+nnoremap <leader>gv :call FuzzySelectFile("app/views", "", ":edit")<cr>
+nnoremap <leader>gc :call FuzzySelectFile("app/controllers", "", ":edit")<cr>
+nnoremap <leader>gm :call FuzzySelectFile("app/models", "", ":edit")<cr>
+nnoremap <leader>gh :call FuzzySelectFile("app/helpers", "", ":edit")<cr>
 " misc things
-nnoremap <leader>gl :call SelectaFile("lib", ".", ":edit")<cr>
-nnoremap <leader>gp :call SelectaFile("public", ".", ":edit")<cr>
-nnoremap <leader>gs :call SelectaFile("app/assets/stylesheets", ".", ":edit")<cr>
+nnoremap <leader>gl :call FuzzySelectFile("lib", "", ":edit")<cr>
+nnoremap <leader>gp :call FuzzySelectFile("public", "", ":edit")<cr>
+nnoremap <leader>gs :call FuzzySelectFile("", "-e scss -e css -e sass", ":edit")<cr>
 
-nnoremap <leader>gj :call SelectaFile("app/javascript", "-e js .", ":edit")<cr>
+nnoremap <leader>gj :call FuzzySelectFile("", "--extension js", ":edit")<cr>
 " view/edit relative file
-nnoremap <leader>e :call SelectaFile(expand('%:h'), ".", ":edit")<cr>
-nnoremap <leader>v :call SelectaFile(expand('%:h'), ".", ":view")<cr>
+nnoremap <leader>e :call FuzzySelectFile(expand('%:h'), ".", ":edit")<cr>
+nnoremap <leader>v :call FuzzySelectFile(expand('%:h'), ".", ":view")<cr>
 
 
 
