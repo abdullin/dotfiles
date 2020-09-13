@@ -256,18 +256,19 @@ function! FuzzySelectCommand(choice_command, vim_command)
   try
     let command =  a:choice_command . " | " . g:heatseeker_binary 
     echo command
-    let selections = system(command)
+    let selections = systemlist(command)
     " Escape spaces in the file name. That ensures that it's a single argument
     " when concatenated with vim_command and run with exec.
     " let selection = substitute(selection, ' ', '\\ ', "g")
   catch /Vim:Interrupt/
     " Swallow the ^C so that the redraw below happens; otherwise there will be
-    " leftovers from selecta on the screen
+    " leftovers from heatseeker on the screen
     redraw!
     return
   endtry
   redraw!
-  for selection in split(selections, "\n")
+  for selection in selections
+    " TODO: import :tabe for the additional files?
     exec a:vim_command . " " . selection
   endfor
 endfunction
@@ -280,7 +281,14 @@ endfunction
 
 " find file from the root for editing
 nnoremap <leader>f :call FuzzySelectFile("", "", ":edit")<cr>
-" Edit app components
+" view/edit relative file
+nnoremap <leader>e :call FuzzySelectFile(expand('%:h'), ".", ":edit")<cr>
+nnoremap <leader>v :call FuzzySelectFile(expand('%:h'), ".", ":view")<cr>
+
+" type-based selectors from root
+nnoremap <leader>gs :call FuzzySelectFile("", "-e scss -e css -e sass", ":edit")<cr>
+nnoremap <leader>gj :call FuzzySelectFile("", "--extension js", ":edit")<cr>
+" Edit rails app components
 nnoremap <leader>gv :call FuzzySelectFile("app/views", "", ":edit")<cr>
 nnoremap <leader>gc :call FuzzySelectFile("app/controllers", "", ":edit")<cr>
 nnoremap <leader>gm :call FuzzySelectFile("app/models", "", ":edit")<cr>
@@ -288,12 +296,7 @@ nnoremap <leader>gh :call FuzzySelectFile("app/helpers", "", ":edit")<cr>
 " misc things
 nnoremap <leader>gl :call FuzzySelectFile("lib", "", ":edit")<cr>
 nnoremap <leader>gp :call FuzzySelectFile("public", "", ":edit")<cr>
-nnoremap <leader>gs :call FuzzySelectFile("", "-e scss -e css -e sass", ":edit")<cr>
 
-nnoremap <leader>gj :call FuzzySelectFile("", "--extension js", ":edit")<cr>
-" view/edit relative file
-nnoremap <leader>e :call FuzzySelectFile(expand('%:h'), ".", ":edit")<cr>
-nnoremap <leader>v :call FuzzySelectFile(expand('%:h'), ".", ":view")<cr>
 
 
 
