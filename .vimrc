@@ -244,15 +244,18 @@ nnoremap <leader>Gz :e ~/.zshrc <cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Selecta Mappings - uses a brew 'selecta' from garry
+" heatseeker mappings. Use fd and heatseeker binaries
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:heatseeker_binary = trim(system("~/bin/bin-for-this-platform heatseeker"))
+let g:fd_binary = trim(system("~/bin/bin-for-this-platform fd"))
+
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.
-
-let g:heatseeker_binary = system("~/bin/bin-for-this-platform heatseeker")
-function! SelectaCommand(choice_command, selecta_args, vim_command)
+function! SelectaCommand(choice_command, vim_command)
   try
-    let selections = system(a:choice_command . " | " . g:heatseeker_binary . " " . a:selecta_args)
+    let command =  a:choice_command . " | " . g:heatseeker_binary 
+    echo command
+    let selections = system(command)
     " Escape spaces in the file name. That ensures that it's a single argument
     " when concatenated with vim_command and run with exec.
     " let selection = substitute(selection, ' ', '\\ ', "g")
@@ -269,26 +272,26 @@ function! SelectaCommand(choice_command, selecta_args, vim_command)
 endfunction
 
 function! SelectaFile(path, glob, command)
-  call SelectaCommand("find " . a:path . "/* -type f -and -not -path '*/node_modules/*' -and -not -path '*/_build/*' -and -not -path '*/venv/*'  -and -not -path '*/build/*' -and -iname '" . a:glob . "' -and -not -iname '*.pyc' -and -not -ipath '*/tmp/*' -and -not -iname '*.png' -and -not -iname '*.jpg' -and -not -iname '*.eps' -and -not -iname '*.pdf' -and -not -iname '*.svg' -and -not -iname '*.ttf' -and -not -iname '.keep'", "", a:command)
+  call SelectaCommand(g:fd_binary . " " . a:glob . " " . a:path, a:command)
 endfunction
 
 
 " find file from the root for editing
-nnoremap <leader>f :call SelectaFile(".", "*", ":edit")<cr>
+nnoremap <leader>f :call SelectaFile("", ".", ":edit")<cr>
 " Edit app components
-nnoremap <leader>gv :call SelectaFile("app/views", "*", ":edit")<cr>
-nnoremap <leader>gc :call SelectaFile("app/controllers", "*", ":edit")<cr>
-nnoremap <leader>gm :call SelectaFile("app/models", "*", ":edit")<cr>
-nnoremap <leader>gh :call SelectaFile("app/helpers", "*", ":edit")<cr>
+nnoremap <leader>gv :call SelectaFile("app/views", ".", ":edit")<cr>
+nnoremap <leader>gc :call SelectaFile("app/controllers", ".", ":edit")<cr>
+nnoremap <leader>gm :call SelectaFile("app/models", ".", ":edit")<cr>
+nnoremap <leader>gh :call SelectaFile("app/helpers", ".", ":edit")<cr>
 " misc things
-nnoremap <leader>gl :call SelectaFile("lib", "*", ":edit")<cr>
-nnoremap <leader>gp :call SelectaFile("public", "*", ":edit")<cr>
-nnoremap <leader>gs :call SelectaFile("app/assets/stylesheets", "*", ":edit")<cr>
+nnoremap <leader>gl :call SelectaFile("lib", ".", ":edit")<cr>
+nnoremap <leader>gp :call SelectaFile("public", ".", ":edit")<cr>
+nnoremap <leader>gs :call SelectaFile("app/assets/stylesheets", ".", ":edit")<cr>
 
-nnoremap <leader>gj :call SelectaFile("app/javascript", "*", ":edit")<cr>
+nnoremap <leader>gj :call SelectaFile("app/javascript", "-e js .", ":edit")<cr>
 " view/edit relative file
-nnoremap <leader>e :call SelectaFile(expand('%:h'), "*", ":edit")<cr>
-nnoremap <leader>v :call SelectaFile(expand('%:h'), "*", ":view")<cr>
+nnoremap <leader>e :call SelectaFile(expand('%:h'), ".", ":edit")<cr>
+nnoremap <leader>v :call SelectaFile(expand('%:h'), ".", ":view")<cr>
 
 
 
