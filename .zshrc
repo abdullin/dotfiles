@@ -69,12 +69,10 @@ compinit -D
 zstyle ':completion:*' menu select
 
 
-
 # Colorize terminal
 alias ls='ls -G'
 alias ll='ls -lG'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-
 
 # Always enable colored `grep` output`
 alias grep="grep --color=auto"
@@ -84,21 +82,12 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
 
-# Path to your oh-my-zsh configuration.
-#ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# ZSH_THEME="robbyrussell"
-
 alias ec='emacsclient -c'
-
 
 export PATH="/usr/local/sbin:/usr/local/bin:${PATH}"
 # include bin from the dotfiles
-export PATH="$HOME/bin:$PATH"
+# also bin from the .local, if present
+export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
