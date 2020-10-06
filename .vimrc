@@ -246,8 +246,12 @@ nnoremap <leader>Gz :e ~/.zshrc <cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " heatseeker mappings. Use fd and heatseeker binaries
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:heatseeker_binary = trim(system("~/bin/bin-for-this-platform heatseeker"))
-let g:fd_binary = trim(system("~/bin/bin-for-this-platform fd"))
+" because trim is only in 8.0.x
+function! Trim(args)
+  return substitute(a:args, '^\s*\(.\{-}\)\s*$', '\1', '') 
+endfunction
+let g:heatseeker_binary = Trim(system("~/bin/bin-for-this-platform heatseeker"))
+let g:fd_binary = Trim(system("~/bin/bin-for-this-platform fd"))
 
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.
