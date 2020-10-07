@@ -30,6 +30,7 @@
 /.gemrc
 /.glide/
 /.gnupg/
+/.gradle/
 /.helm/
 /.history
 /.httpie/
