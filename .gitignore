@@ -43,6 +43,7 @@
 /.jupyter/
 /.kafkaesque/
 /.kafkatool2/
+/.keras/
 /.kube/
 /.lego/
 /.lein/
@@ -105,6 +106,7 @@
 /Projects/
 /Public/
 /PycharmProjects/
+/Qt/
 /RiderProjects/
 /backup/
 /files/
