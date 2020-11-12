@@ -174,7 +174,7 @@ augroup vimrcEx
   autocmd! FileType javascript set sw=2 sts=2 expandtab
 
   " Expand tabs in Go. Was gofmt raised in a barn?!
-  autocmd! FileType go set sw=4 sts=4 expandtab | retab
+  " autocmd! FileType go set sw=4 sts=4 expandtab | retab
 
   " Two-space indents in json
   autocmd! FileType json set sw=2 sts=2 expandtab
