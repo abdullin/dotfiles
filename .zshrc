@@ -93,9 +93,19 @@ export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
 export EDITOR='vim'
 
 # Nicer history
-export HISTSIZE=100000
+#
+export HISTSIZE=100000                   # big big history
+export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+export HISTFILESIZE=100000               # big big history
+
 export HISTFILE="$HOME/.history"
-export SAVEHIST=$HISTSIZE
+export SAVEHIST=100000
+
+# from here https://unix.stackexchange.com/a/575102 
+setopt appendhistory
+setopt INC_APPEND_HISTORY  
+setopt SHARE_HISTORY
+
 
 
 # search with up/down
