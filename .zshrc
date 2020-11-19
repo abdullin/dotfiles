@@ -159,7 +159,14 @@ function p() {
     # run through the selector
     local proj=$(echo $list | heatseeker)
     if [[ -n "$proj" ]]; then
+
         cd ~/proj/$proj
+
+        # set iterm tab to the project name
+        if [[ -n "$ITERM_PROFILE" ]]; then
+          echo -ne "\033]0;$proj\007"
+        fi
+
         # Ruby activation with chruby and gem_home
         if [[ -e "Gemfile" ]]; then
             local ruby_version
