@@ -45,6 +45,7 @@
 /.kafkatool2/
 /.keras/
 /.kube/
+/.lazarus/
 /.lego/
 /.lein/
 /.lesshst
@@ -102,6 +103,7 @@
 /Library/
 /Movies/
 /Music/
+/Parallels/
 /Pictures/
 /Projects/
 /Public/
