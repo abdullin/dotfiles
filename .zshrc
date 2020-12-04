@@ -188,7 +188,7 @@ function p() {
 }
 
 # golang
-export PATH=$PATH:$HOME/proj/go/bin
+export PATH=$PATH:$HOME/go/bin
 
 # PYTHON ==========================================
 export PATH=$PATH:$(python3 -m site --user-base)/bin
