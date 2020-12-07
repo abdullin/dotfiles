@@ -15,6 +15,7 @@
 /.bundle/
 /.caa/
 /.cache/
+/.clojure/
 /.conda/
 /.config/
 /.cups/
