@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ -z $KUBECTL_NS ]; then
+  echo "To use, set environment variable\
+    export KUBECTL_NS="
+else
+  kubectl -n $KUBECTL_NS
+fi
