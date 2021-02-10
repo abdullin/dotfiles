@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+import sys
+
+version = sys.argv[1]
+
+
+args = version.split('.')
+last = int(args[-1])
+
+args[-1] = str(last+1)
+print('.'.join(args))

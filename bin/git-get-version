@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+import sys
+import subprocess
+
+output = subprocess.check_output(['git', 'tag'])
+outpop = output.decode()
+
+prefix = sys.argv[1]
+versions = []
+for l in outpop.splitlines():
+    if not l or not prefix in l:
+        continue
+
+    ver = l.replace(prefix,"").strip('-')
+    versions.append(ver)
+
+if len(versions) == 0:
+    print('0.0.1')
+else:
+    versions.sort(key=lambda s: [int(u) for u in s.split('.')])
+    print(versions[-1])
