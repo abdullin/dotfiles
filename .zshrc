@@ -187,6 +187,7 @@ function p() {
     fi
 }
 
+
 # golang
 export PATH=$PATH:$HOME/go/bin
 
