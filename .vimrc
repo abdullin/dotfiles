@@ -9,8 +9,9 @@ autocmd!
       
 " initialize plugins
 call plug#begin('~/.vim/plugged')
-Plug 'vim-ruby/vim-ruby'
+"Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
+Plug 'ziglang/zig.vim'
 " Plug 'zivyangll/git-blame.vim'
 
 " JavaScript
@@ -436,7 +437,7 @@ function! RunTestFile(...)
     endif
 
     " Are we in a test file?
-    let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\|test_.*\.py\|_test.py\|.test.ts\|.test.ts\)$') != -1
+    let in_test_file = match(expand("%"), '\(.zig\|_spec.rb\|_test.rb\|test_.*\.py\|_test.py\|.test.ts\|.test.ts\)$') != -1
 
     " Run the tests for the previously-marked file (or the current file if
     " it's a test).
@@ -492,6 +493,8 @@ function! RunTests(filename)
     " If we see python-looking tests, assume they should be run with Nose
     elseif strlen(glob("test/**/*.py") . glob("tests/**/*.py"))
       exec "!nosetests " . a:filename
+    elseif strlen("build.zig")
+      exec ":compiler zig_test"
     else
       echo "No matching test runner"
     endif
