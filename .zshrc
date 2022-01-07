@@ -212,6 +212,10 @@ function activate_venv() {
 export PATH="$PATH:$HOME/.dotnet/tools"
 
 
+# go install folder
+if [ -f /usr/local/go/bin/go ]; then
+  export PATH=$PATH:/usr/local/go/bin
+fi
 
 # changes the current ruby
 # https://github.com/postmodern/chruby
