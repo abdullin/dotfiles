@@ -95,7 +95,6 @@ export EDITOR='vim'
 # Nicer history
 #
 export HISTSIZE=100000                   # big big history
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTFILESIZE=100000               # big big history
 
 export HISTFILE="$HOME/.history"
@@ -186,6 +185,11 @@ function p() {
         fi
     fi
 }
+
+# locales for ssh
+if [[ `uname` == "Darwin" ]]; then 
+    export LC_ALL=en_US.UTF-8
+fi
 
 
 # golang
