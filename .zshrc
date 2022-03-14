@@ -117,6 +117,7 @@ bindkey "^[[B" history-beginning-search-forward
 
 
 test -f $HOME/.bash_profile && source $HOME/.bash_profile
+test -f $HOME/.local/zsh_profile && source $HOME/.local/zsh_profile
 
 # Stop wget from creating ~/.wget-hsts file. I don't care about HSTS (HTTP
 # Strict Transport Security) for wget; it's not as if I'm logging into my bank
