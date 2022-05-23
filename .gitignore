@@ -123,3 +123,13 @@
 /proj/
 /secrets/
 /src/
+.gsutil
+.mailcap
+.pandoc
+.macports
+.iterm2
+.sqlite_history
+.swiftpm
+pix
+.mime.types
+.putty
