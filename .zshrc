@@ -152,8 +152,9 @@ zle -N insert-heatseeker-path-in-command-line
 bindkey "^S" "insert-heatseeker-path-in-command-line"
 
 
-# Switch projects
-function p() {
+function open_project() {
+    local activate="$1";
+
     # grab list of projects + list of aliases
     local list=$( ls ~/proj ; cat ~/proj/.alias 2>/dev/null)
     # run through the selector
@@ -162,29 +163,41 @@ function p() {
 
         cd ~/proj/$proj
 
-        # set iterm tab to the project name
-        if [[ -n "$ITERM_PROFILE" ]]; then
-          echo -ne "\033]0;$proj\007"
-        fi
+        if [ "$activate" = 'activate' ]; then
 
-        # Ruby activation with chruby and gem_home
-        if [[ -e "Gemfile" ]]; then
-            local ruby_version
-            ruby_version=$(ruby -ne $'print $1 if $_ =~ /ruby [\'"]([0-9.]+)[\'"]/' Gemfile)
-            chruby "$ruby_version"
-            gem_home .
-        fi
-        # Python activation
-        if [[ -e "venv/bin/activate" ]]; then
-            clear
-            source venv/bin/activate
-        fi
-        # load secrets
-        if [[ -d ~/secrets/$proj ]]; then
-            echo "."
-            source ~/secrets/$proj/secrets
+            # set iterm tab to the project name
+            if [[ -n "$ITERM_PROFILE" ]]; then
+              echo -ne "\033]0;$proj\007"
+            fi
+
+            # Ruby activation with chruby and gem_home
+            if [[ -e "Gemfile" ]]; then
+                local ruby_version
+                ruby_version=$(ruby -ne $'print $1 if $_ =~ /ruby [\'"]([0-9.]+)[\'"]/' Gemfile)
+                chruby "$ruby_version"
+                gem_home .
+            fi
+            # Python activation
+            if [[ -e "venv/bin/activate" ]]; then
+                clear
+                source venv/bin/activate
+            fi
+            # load secrets
+            if [[ -d ~/secrets/$proj ]]; then
+                echo "."
+                source ~/secrets/$proj/secrets
+            fi
         fi
     fi
+}
+
+# Switch projects with activation
+function p() {
+    open_project "activate"
+}
+
+function j(){
+    open_project
 }
 
 # locales for ssh
@@ -228,3 +241,6 @@ fi
 if [ -f /usr/local/share/gem_home/gem_home.sh ]; then
   source /usr/local/share/gem_home/gem_home.sh
 fi
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /Users/rinat/.local/bin/terraform terraform
